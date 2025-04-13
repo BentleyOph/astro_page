@@ -1,5 +1,9 @@
 ---
-import '../styles/global.css'
+import Navigation from "../components/Navigation.astro";
+import Header from "../components/Header.astro";
+import "../styles/global.css";
+import Footer from "../components/Footer.astro";
+import Baselayout from "../layouts/Baselayout.astro";
 const pageTitle = "About Me";
 const identity = {
     name: "Bento",
@@ -7,7 +11,7 @@ const identity = {
     hobbies: ["coding", "gaming", "reading"],
 };
 
-const skills = [ "Javascript" , "Python" , "Golang"];
+const skills = ["Javascript", "Python", "Golang"];
 const skillColor = "navy";
 const fontSize = "2rem";
 const fontWeight = "bold";
@@ -19,54 +23,47 @@ const fontWeight = "bold";
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
-        <style define:vars={{skillColor, fontSize, fontWeight}}>
-            h1 {
-              color: purple;
-              font-size: 4rem;
-            }
-            .skill {
-              color: var(--skillColor);
-              font-size: var(--fontSize);
-              font-weight: var(--fontWeight);
-            }
-        </style>
-        <title>{pageTitle}</title>
 
+        <title>{pageTitle}</title>
     </head>
     <body>
-        <a href="/">Home</a>
-        <a href="/about/">About</a>
-        <a href="/blog/">Blog</a>
-        <h1>{pageTitle}</h1>
-        <h2>... and my new Astro site!</h2>
+        <Baselayout pageTitle={pageTitle}>
+            <style is:global define:vars={{ skillColor, fontSize, fontWeight }}>
+                h1 {
+                    color: purple;
+                    font-size: 4rem;
+                }
+                .skill {
+                    color: var(--skillColor);
+                    font-size: var(--fontSize);
+                    font-weight: var(--fontWeight);
+                }
+            </style>
+            <h2>... and my new Astro site!</h2>
 
-        <p>
-            I am working through Astro's introductory tutorial. This is the
-            second page on my website, and it's the first one I built myself!
-        </p>
+            <p>
+                I am working through Astro's introductory tutorial. This is the
+                second page on my website, and it's the first one I built
+                myself!
+            </p>
 
-        <p>
-            This site will update as I complete more of the tutorial, so keep
-            checking back and see how my journey is going!
-        </p>
-        <p>Here are a few facts about me :</p>
-        <ul>
-            <li>Name: {identity.name}</li>
-            <li>Age: {identity.age}</li>
-            <li>Hobbies:</li>
+            <p>
+                This site will update as I complete more of the tutorial, so
+                keep checking back and see how my journey is going!
+            </p>
+            <p>Here are a few facts about me :</p>
             <ul>
-                {identity.hobbies.map((hobby) => (
-                    <li>{hobby}</li>
-                ))}
+                <li>Name: {identity.name}</li>
+                <li>Age: {identity.age}</li>
+                <li>Hobbies:</li>
+                <ul>
+                    {identity.hobbies.map((hobby) => <li>{hobby}</li>)}
+                </ul>
+                <li>Skills:</li>
+                <ul>
+                    {skills.map((skill) => <li class="skill">{skill}</li>)}
+                </ul>
             </ul>
-            <li>Skills:</li>
-            <ul>
-                {skills.map((skill) => (
-                    <li class="skill">{skill}</li>
-                ))}
-            </ul>
-        </ul>
-
+        </Baselayout>
     </body>
-
 </html>
